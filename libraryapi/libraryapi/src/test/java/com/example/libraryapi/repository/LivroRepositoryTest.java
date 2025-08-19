@@ -5,6 +5,7 @@ import com.example.libraryapi.model.Autor;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,6 +126,31 @@ class LivroRepositoryTest {
 
         List<Livro> lista = livroRepository.findByTituloAndPreco("Pai rico, Pai pobre", preco);
         lista.forEach(System.out::println);
+    }
+
+    @Test
+    void listarLivrosComQueryJpql() {
+        var resultado = livroRepository.listarTodosOrdenadosPorTituloAndPreco();
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    void listarAutoresDosLivros() {
+        var resultado = livroRepository.listarAutoresDosLivros();
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    void listarTitulosNaoRepetidosDosLivros() {
+        var resultado = livroRepository.listarNomesDiferentesLivros();
+        resultado.forEach(System.out::println);
+    }
+
+
+    @Test
+    void ListarGenerosDeLivrosAutoresBrasileiros() {
+        var resultado = livroRepository.listarGenerosAutoresBrasileiros();
+        resultado.forEach(System.out::println);
     }
 
 }

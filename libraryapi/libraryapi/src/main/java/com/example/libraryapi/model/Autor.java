@@ -30,13 +30,17 @@ public class Autor {
     private LocalDate dataNascimento;
 
     @Column(name = "nacionalidade", length = 50, nullable = false)
-    private String nascionalidade;
+    private String nacionalidade;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Livro> livros;
 
     public String getNome() {
         return nome;
+    }
+
+    public String getNascionalidade() {
+        return nacionalidade;
     }
 
     public List<Livro> getLivros() {
@@ -52,7 +56,7 @@ public class Autor {
     }
 
     public void setNascionalidade(String nascionalidade) {
-        this.nascionalidade = nascionalidade;
+        this.nacionalidade = nascionalidade;
     }
 
     public void setLivros(List<Livro> livros) {
@@ -64,7 +68,7 @@ public class Autor {
         return "Autor{" +
                 "nome='" + nome + '\'' +
                 ", dataNascimento=" + dataNascimento +
-                ", nascionalidade='" + nascionalidade + '\'' +
+                ", nascionalidade='" + nacionalidade + '\'' +
                 '}';
     }
 }
