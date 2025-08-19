@@ -1,5 +1,5 @@
 package com.example.libraryapi.model;
 
 public enum GeneroLivro {
-    FICCAO, FANTASIA, MISTERIO, ROMANCE, BIOGRAFIA, CIENCIA, TERROR
+    FICCAO, FANTASIA, MISTERIO, ROMANCE, BIOGRAFIA, CIENCIA, TERROR, PSICOLOGIA
 }

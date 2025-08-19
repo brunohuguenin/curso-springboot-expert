@@ -13,8 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "autor")
-@Getter
-@Setter
+@Data
 @ToString
 public class Autor {
 
@@ -35,6 +34,14 @@ public class Autor {
     @OneToMany(mappedBy = "autor")
     private List<Livro> livros;
 
+    public String getNome() {
+        return nome;
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -47,6 +54,9 @@ public class Autor {
         this.nascionalidade = nascionalidade;
     }
 
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
 
     @Override
     public String toString() {

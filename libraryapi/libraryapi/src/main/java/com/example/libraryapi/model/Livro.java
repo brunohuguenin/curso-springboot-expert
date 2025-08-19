@@ -37,6 +37,14 @@ public class Livro {
     @JoinColumn(name = "id_autor")
     private Autor autor;
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }

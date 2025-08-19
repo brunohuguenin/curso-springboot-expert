@@ -4,7 +4,6 @@ package com.example.libraryapi.repository;
 import com.example.libraryapi.model.Autor;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,16 +41,16 @@ class LivroRepositoryTest {
     void salvarCascadeTeste() {
         Livro livro = new Livro();
 
-        livro.setIsbn("1652-8426");
+        livro.setIsbn("1223-6593");
         livro.setPreco(BigDecimal.valueOf(75.99));
-        livro.setGenero(GeneroLivro.BIOGRAFIA);
-        livro.setTitulo("O último Samurai");
-        livro.setDataPublicacao(LocalDate.of(2003, 4, 15));
+        livro.setGenero(GeneroLivro.CIENCIA);
+        livro.setTitulo("Negocie como se sua vida dependesse disso");
+        livro.setDataPublicacao(LocalDate.of(2015, 12, 16));
 
         Autor autor = new Autor();
-        autor.setNome("Tamaki Oyasaki");
-        autor.setNascionalidade("Japonesa");
-        autor.setDataNascimento(LocalDate.of(1903, 10, 7));
+        autor.setNome("Chris Voss");
+        autor.setNascionalidade("Americana");
+        autor.setDataNascimento(LocalDate.of(1980, 8, 27));
 
         autorRepository.save(autor);
         livro.setAutor(autor);
@@ -73,7 +72,7 @@ class LivroRepositoryTest {
 
     @Test
     void deletarLivroTeste() {
-        UUID id = UUID.fromString("");
+        UUID id = UUID.fromString("dfcf6c73-0106-45ef-8e36-1217feb861f3");
         livroRepository.deleteById(id);
     }
 
@@ -81,5 +80,15 @@ class LivroRepositoryTest {
     void deletarCascadeLivroTeste() {
         UUID id = UUID.fromString("");
         livroRepository.deleteById(id);
+    }
+
+    @Test
+    void buscarLivroTeste() {
+        UUID id = UUID.fromString("4cbaac0e-9384-4bc3-97a0-b5e74e82e029");
+        Livro livro = livroRepository.findById(id).orElse(null);
+        System.out.println("Livro: ");
+        System.out.println(livro.getTitulo());
+        System.out.println("Autor: ");
+        System.out.println(livro.getAutor().getNome());
     }
 }
