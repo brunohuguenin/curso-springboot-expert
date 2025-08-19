@@ -153,4 +153,16 @@ class LivroRepositoryTest {
         resultado.forEach(System.out::println);
     }
 
+    @Test
+    void listarPorGeneroQueryParam() {
+        var resultado = livroRepository.findByGenero(GeneroLivro.CIENCIA, "titulo");
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    void positionalParam() {
+        var resultado = livroRepository.findByGeneroPositionalParameters("preco", GeneroLivro.FICCAO);
+        resultado.forEach(System.out::println);
+    }
+
 }
