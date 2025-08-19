@@ -7,9 +7,11 @@ import com.example.libraryapi.model.Livro;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
@@ -91,4 +93,18 @@ class LivroRepositoryTest {
         System.out.println("Autor: ");
         System.out.println(livro.getAutor().getNome());
     }
+
+    @Test
+    @Transactional
+    void listarLivrosAutor() {
+        var id = UUID.fromString("01e6eb55-f10d-4f79-983f-6607649958f0");
+        var autor = autorRepository.findById(id).get();
+
+        List<Livro> livrosLista = livroRepository.findByAutor(autor);
+        autor.setLivros(livrosLista);
+
+
+        autor.getLivros().forEach(System.out::println);
+    }
+
 }
