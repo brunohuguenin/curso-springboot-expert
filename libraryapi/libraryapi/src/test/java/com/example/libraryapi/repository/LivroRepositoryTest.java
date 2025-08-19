@@ -107,4 +107,24 @@ class LivroRepositoryTest {
         autor.getLivros().forEach(System.out::println);
     }
 
+    @Test
+    void pesquisaPorTitutloTeste() {
+        List<Livro> pesquisa = livroRepository.findByTitulo("Vida Líquida");
+        pesquisa.forEach(System.out::println);
+    }
+
+    @Test
+    void pesquisaPorIsbnTeste() {
+        List<Livro> byISBN = livroRepository.findByIsbn("1245-9658");
+        System.out.println(byISBN);
+    }
+
+    @Test
+    void pesquisaPorTitutloEPreco() {
+        var preco = BigDecimal.valueOf(200.00);
+
+        List<Livro> lista = livroRepository.findByTituloAndPreco("Pai rico, Pai pobre", preco);
+        lista.forEach(System.out::println);
+    }
+
 }
