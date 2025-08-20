@@ -1,10 +1,9 @@
 package com.example.libraryapi.service;
 
-import com.example.libraryapi.dto.AutorDTO;
+
 import com.example.libraryapi.model.Autor;
 import com.example.libraryapi.repository.AutorRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -24,5 +23,9 @@ public class AutorService {
 
     public Optional<Autor> obterPorId(UUID id) {
         return autorRepository.findById(id);
+    }
+
+    public void deletar(Autor autor) {
+        autorRepository.delete(autor);
     }
 }
