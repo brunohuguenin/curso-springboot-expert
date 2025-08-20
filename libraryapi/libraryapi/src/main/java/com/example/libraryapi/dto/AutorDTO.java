@@ -3,8 +3,17 @@ package com.example.libraryapi.dto;
 import com.example.libraryapi.model.Autor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-public record AutorDTO(String nome, LocalDate dataNascimento, String nacionalidade) {
+public record AutorDTO(
+        UUID id,
+        String nome,
+        LocalDate dataNascimento,
+        String nacionalidade
+
+) {
+
+
 
     public Autor mapearAutor() {
         Autor autor = new Autor();

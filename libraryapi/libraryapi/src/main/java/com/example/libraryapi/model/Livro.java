@@ -1,15 +1,14 @@
 package com.example.libraryapi.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.Data;
 import lombok.ToString;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "livro")
 @ToString
@@ -40,33 +39,4 @@ public class Livro {
     @JoinColumn(name = "id_autor")
     private Autor autor;
 
-
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setDataPublicacao(LocalDate dataPublicacao) {
-        this.dataPublicacao = dataPublicacao;
-    }
-
-    public void setGenero(GeneroLivro genero) {
-        this.genero = genero;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
-    public void setAutor(Autor autor) {
-        this.autor = autor;
-    }
 }

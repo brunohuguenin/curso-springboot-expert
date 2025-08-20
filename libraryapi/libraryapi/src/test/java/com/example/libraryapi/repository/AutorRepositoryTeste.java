@@ -27,7 +27,7 @@ public class AutorRepositoryTeste {
     public void salvarTeste() {
         Autor autor = new Autor();
         autor.setNome("George Orwell");
-        autor.setNascionalidade("Britânica");
+        autor.setNacionalidade("Britânica");
         autor.setDataNascimento(LocalDate.of(1903, 6, 25));
 
         var autorSalvo = autorRepository.save(autor);
@@ -45,7 +45,7 @@ public class AutorRepositoryTeste {
             System.out.println(autorEncontrado);
 
             autorEncontrado.setNome("Luís de Camões");
-            autorEncontrado.setNascionalidade("Portuguesa");
+            autorEncontrado.setNacionalidade("Portuguesa");
             autorEncontrado.setDataNascimento(LocalDate.of(1960, 1, 30));
 
             autorRepository.save(autorEncontrado);
@@ -68,7 +68,7 @@ public class AutorRepositoryTeste {
     void salvarAutorComLivrosTeste() {
         Autor autor = new Autor();
         autor.setNome("Zygmunt Bauman");
-        autor.setNascionalidade("Polonesa");
+        autor.setNacionalidade("Polonesa");
         autor.setDataNascimento(LocalDate.of(1925, 11, 19));
 
         Livro livro = new Livro();
