@@ -52,7 +52,7 @@ public class TransacoesService {
         // Salva o Autor
         Autor autor = new Autor();
         autor.setNome("Francisco");
-        autor.setNascionalidade("Americana");
+        autor.setNacionalidade("Americana");
         autor.setDataNascimento(LocalDate.of(1975, 3, 22));
 
         autorRepository.saveAndFlush(autor);

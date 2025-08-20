@@ -1,17 +1,18 @@
 package com.example.libraryapi.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "livro")
-@Data
+@ToString
 public class Livro {
 
     @Id
@@ -39,12 +40,10 @@ public class Livro {
     @JoinColumn(name = "id_autor")
     private Autor autor;
 
-    public String getTitulo() {
-        return titulo;
-    }
 
-    public Autor getAutor() {
-        return autor;
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public void setIsbn(String isbn) {
@@ -69,18 +68,5 @@ public class Livro {
 
     public void setAutor(Autor autor) {
         this.autor = autor;
-    }
-
-    @Override
-    public String toString() {
-        return "Livro{" +
-                "id=" + id +
-                ", isbn='" + isbn + '\'' +
-                ", titulo='" + titulo + '\'' +
-                ", dataPublicacao=" + dataPublicacao +
-                ", genero=" + genero +
-                ", preco=" + preco +
-                ", autor=" + autor +
-                '}';
     }
 }

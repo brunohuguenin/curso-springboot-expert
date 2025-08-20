@@ -10,7 +10,7 @@ public record AutorDTO(String nome, LocalDate dataNascimento, String nacionalida
         Autor autor = new Autor();
         autor.setNome(this.nome);
         autor.setDataNascimento(this.dataNascimento);
-        autor.setNascionalidade(this.nacionalidade);
+        autor.setNacionalidade(this.nacionalidade);
         return autor;
     }
 }
