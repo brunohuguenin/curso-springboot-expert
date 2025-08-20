@@ -3,11 +3,7 @@ package com.example.libraryapi.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +30,10 @@ public class Autor {
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Livro> livros;
+
+    public UUID getId() {
+        return id;
+    }
 
     public String getNome() {
         return nome;
