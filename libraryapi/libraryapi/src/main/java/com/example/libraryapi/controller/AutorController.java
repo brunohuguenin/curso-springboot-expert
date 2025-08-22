@@ -1,6 +1,7 @@
 package com.example.libraryapi.controller;
 
 import com.example.libraryapi.dto.AutorDTO;
+import com.example.libraryapi.dto.ErroResposta;
 import com.example.libraryapi.model.Autor;
 import com.example.libraryapi.service.AutorService;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,8 @@ public class AutorController {
                 .buildAndExpand(autorEntidade.getId())
                 .toUri();
 
+        ErroResposta erro = ErroResposta.conflito("Autor já cadastrado!");
+        return ResponseEntity.status(erro.status()).body(erro);
         return ResponseEntity.created(location).build();
     }
 
@@ -101,6 +104,7 @@ public class AutorController {
         autor.setNome(dto.nome());
         autor.setDataNascimento(dto.dataNascimento());
         autor.setNacionalidade(dto.nacionalidade());
+
 
         autorService.atualizar(autor);
         return ResponseEntity.noContent().build();
