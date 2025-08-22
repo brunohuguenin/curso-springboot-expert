@@ -27,14 +27,13 @@ class LivroRepositoryTest {
     @Test
     void salvarLivroTeste() {
         Livro livro = new Livro();
-
         livro.setIsbn("1245-9658");
         livro.setPreco(BigDecimal.valueOf(120.99));
         livro.setGenero(GeneroLivro.FICCAO);
-        livro.setTitulo("1884");
+        livro.setTitulo("1894");
         livro.setDataPublicacao(LocalDate.of(1956, 5, 23));
 
-        Autor autor = autorRepository.findById(UUID.fromString("01e6eb55-f10d-4f79-983f-6607649958f0")).orElse(null);
+        Autor autor = autorRepository.findById(UUID.fromString("b3e03785-9a81-4394-85fe-2a301ba93751")).orElse(null);
         livro.setAutor(autor);
 
         livroRepository.save(livro);
@@ -52,7 +51,7 @@ class LivroRepositoryTest {
 
         Autor autor = new Autor();
         autor.setNome("Chris Voss");
-        autor.setNascionalidade("Americana");
+        autor.setNacionalidade("Americana");
         autor.setDataNascimento(LocalDate.of(1980, 8, 27));
 
         autorRepository.save(autor);
