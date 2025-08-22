@@ -45,4 +45,11 @@ public class AutorService {
 
         return autorRepository.findAll();
     }
+
+    public Autor atualizar(Autor autor) {
+        if (autor.getId() == null) {
+            throw  new IllegalArgumentException("Para atualizar, é necessário que o autor já esteja na base de dados.");
+        }
+        return autorRepository.save(autor);
+    }
 }
