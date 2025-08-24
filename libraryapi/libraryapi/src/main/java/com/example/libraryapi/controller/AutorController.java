@@ -1,5 +1,6 @@
 package com.example.libraryapi.controller;
 
+import com.example.libraryapi.controller.mappers.AutorMapper;
 import com.example.libraryapi.dto.AutorDTO;
 import com.example.libraryapi.dto.ErroResposta;
 import com.example.libraryapi.exceptions.OperacaoNaoPermitidaException;
@@ -24,17 +25,18 @@ import java.util.stream.Collectors;
 public class AutorController {
 
     private final AutorService autorService;
+    private final AutorMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO autor) {
+    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO dto) {
         try {
-            Autor autorEntidade = autor.mapearAutor();
-            autorService.salvar(autorEntidade);
+            Autor autor = mapper.toEntity(dto);
+            autorService.salvar(autor);
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(autorEntidade.getId())
+                    .buildAndExpand(autor.getId())
                     .toUri();
 
 
@@ -49,14 +51,11 @@ public class AutorController {
     @GetMapping("{id}")
     public ResponseEntity<AutorDTO> obterDetalhes(@PathVariable String id) {
         var idAutor = UUID.fromString(id);
+
         Optional<Autor> autorOptional = autorService.obterPorId(idAutor);
         if (autorOptional.isPresent()) {
             Autor autor = autorOptional.get();
-            AutorDTO dto = new AutorDTO(
-                    autor.getId(),
-                    autor.getNome(),
-                    autor.getDataNascimento(),
-                    autor.getNacionalidade());
+            AutorDTO dto = mapper.toDTO(autor);
             return ResponseEntity.ok(dto);
         }
 
@@ -91,11 +90,7 @@ public class AutorController {
 
         List<Autor> resultadoPesquisa = autorService.pesquisaByExample(nome, nacionalidade);
         List<AutorDTO> lista = resultadoPesquisa.stream()
-                .map(autor -> new AutorDTO(
-                        autor.getId(),
-                        autor.getNome(),
-                        autor.getDataNascimento(),
-                        autor.getNacionalidade())
+                .map(mapper::toDTO
                 ).collect(Collectors.toList());
         return ResponseEntity.ok(lista);
     }
