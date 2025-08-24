@@ -1,9 +1,11 @@
 package com.example.libraryapi.controller;
 
 
+import com.example.libraryapi.controller.mappers.LivroMapper;
 import com.example.libraryapi.dto.CadastroLivroDTO;
 import com.example.libraryapi.dto.ErroResposta;
 import com.example.libraryapi.exceptions.RegistroDuplicadoException;
+import com.example.libraryapi.model.Livro;
 import com.example.libraryapi.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class LivroController {
 
     private final LivroService livroService;
+    private final LivroMapper mapper;
 
     @PostMapping
     public ResponseEntity<Object> salvar(@RequestBody @Valid CadastroLivroDTO livroDTO) {
         try {
-            return ResponseEntity.ok(livroDTO);
+            Livro livro = mapper.toEntity(livroDTO);
+            livroService.salvar(livro);
+            return ResponseEntity.ok(livro);
         } catch (RegistroDuplicadoException e) {
             var erroDto = ErroResposta.conflito(e.getMessage());
             return ResponseEntity.status(erroDto.status()).body(erroDto);

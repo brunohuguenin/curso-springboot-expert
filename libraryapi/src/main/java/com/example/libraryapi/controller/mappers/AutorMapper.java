@@ -11,6 +11,4 @@ public interface AutorMapper {
 
     AutorDTO toDTO(Autor autor);
 
-
-
 }
