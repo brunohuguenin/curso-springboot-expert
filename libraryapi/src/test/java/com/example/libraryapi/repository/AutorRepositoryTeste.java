@@ -74,7 +74,7 @@ public class AutorRepositoryTeste {
         Livro livro = new Livro();
         livro.setIsbn("1457-9862");
         livro.setPreco(BigDecimal.valueOf(99.99));
-        livro.setGenero(GeneroLivro.FICCAO);
+        livro.setGeneroLivro(GeneroLivro.FICCAO);
         livro.setTitulo("Modernidade Líquida");
         livro.setDataPublicacao(LocalDate.of(1999, 10, 13));
         livro.setAutor(autor);
@@ -82,7 +82,7 @@ public class AutorRepositoryTeste {
         Livro livro2 = new Livro();
         livro2.setIsbn("2684-9517");
         livro2.setPreco(BigDecimal.valueOf(189.99));
-        livro2.setGenero(GeneroLivro.FICCAO);
+        livro2.setGeneroLivro(GeneroLivro.FICCAO);
         livro2.setTitulo("Vida Líquida");
         livro2.setDataPublicacao(LocalDate.of(2001, 7, 21));
         livro2.setAutor(autor);

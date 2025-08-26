@@ -63,7 +63,7 @@ public class TransacoesService {
         Livro livro = new Livro();
         livro.setIsbn("1234-1234");
         livro.setPreco(BigDecimal.valueOf(300.00));
-        livro.setGenero(GeneroLivro. BIOGRAFIA);
+        livro.setGeneroLivro(GeneroLivro. BIOGRAFIA);
         livro.setTitulo("Livro do Francisco");
         livro.setDataPublicacao(LocalDate.of(2007, 11, 16));
 

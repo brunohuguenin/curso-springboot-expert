@@ -18,7 +18,7 @@ public class LivroSpecs {
     }
 
     public static Specification<Livro> generoEqual(GeneroLivro generoLivro) {
-        return (root, query, cb) -> cb.equal(root.get("genero"), generoLivro);
+        return (root, query, cb) -> cb.equal(root.get("generoLivro"), generoLivro);
     }
 
     public static Specification<Livro> anoPublicacaoEqual(Integer anoPublicacao) {

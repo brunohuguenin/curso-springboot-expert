@@ -1,6 +1,8 @@
 package com.example.libraryapi.service;
 
 
+import com.example.libraryapi.dto.CadastroLivroDTO;
+import com.example.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
 import com.example.libraryapi.repository.LivroRepository;
@@ -64,4 +66,11 @@ public class LivroService {
         return livroRepository.findAll(specs);
     }
 
+    public void atualizar(Livro livro) {
+        if (livro.getId() == null) {
+            throw new OperacaoNaoPermitidaException("Para atualizar, é necessário que o livro já esteja salvo na base de dados");
+        }
+
+        livroRepository.save(livro);
+    }
 }

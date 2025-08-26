@@ -30,7 +30,7 @@ class LivroRepositoryTest {
         Livro livro = new Livro();
         livro.setIsbn("1245-9658");
         livro.setPreco(BigDecimal.valueOf(120.99));
-        livro.setGenero(GeneroLivro.FICCAO);
+        livro.setGeneroLivro(GeneroLivro.FICCAO);
         livro.setTitulo("1894");
         livro.setDataPublicacao(LocalDate.of(1956, 5, 23));
 
@@ -46,7 +46,7 @@ class LivroRepositoryTest {
 
         livro.setIsbn("1223-6593");
         livro.setPreco(BigDecimal.valueOf(75.99));
-        livro.setGenero(GeneroLivro.CIENCIA);
+        livro.setGeneroLivro(GeneroLivro.CIENCIA);
         livro.setTitulo("Negocie como se sua vida dependesse disso");
         livro.setDataPublicacao(LocalDate.of(2015, 12, 16));
 

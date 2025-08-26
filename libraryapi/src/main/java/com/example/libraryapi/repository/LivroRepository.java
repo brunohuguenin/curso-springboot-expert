@@ -51,27 +51,27 @@ public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecific
     List<String> listarNomesDiferentesLivros();
 
     @Query("""
-        select l.genero
+        select l.generoLivro
         from Livro l
         join l.autor a
         where a.nacionalidade = 'Brasileira'
-        order by l.genero
+        order by l.generoLivro
     """)
     List<String> listarGenerosAutoresBrasileiros();
 
 
     // Named parameters -> parametros nomeados
-    @Query("select l from Livro l where l.genero = :genero order by :paramOrdenacao ")
+    @Query("select l from Livro l where l.generoLivro = :genero order by :paramOrdenacao ")
     List<Livro> findByGenero(@Param("genero") GeneroLivro generoLivro, @Param("paramOrdenacao") String nomePropriedade);
 
     // Positional parameters -> parametros posicionados
-    @Query("select l from Livro l where l.genero = ?2 order by ?1 ")
+    @Query("select l from Livro l where l.generoLivro = ?2 order by ?1 ")
     List<Livro> findByGeneroPositionalParameters(String nomePropriedade, GeneroLivro generoLivro);
 
 
     @Modifying
     @Transactional
-    @Query("delete from Livro where genero = ?1")
+    @Query("delete from Livro where generoLivro = ?1")
     void deleteByGenero(GeneroLivro genero);
 
 
