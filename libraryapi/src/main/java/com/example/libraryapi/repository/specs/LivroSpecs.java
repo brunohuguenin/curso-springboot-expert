@@ -18,4 +18,14 @@ public class LivroSpecs {
     public static Specification<Livro> generoEqual(GeneroLivro generoLivro) {
         return (root, query, cb) -> cb.equal(root.get("genero"), generoLivro);
     }
+
+    public static Specification<Livro> anoPublicacaoEqual(Integer anoPublicacao) {
+        // select to_char(data_publicacao, 'DD/MM/YYYY') as ano_publicacao from livro;
+        return (root, query, cb) -> cb.equal(cb.function(
+                "to_char",
+                String.class,
+                root.get("dataPublicacao"),
+                cb.literal("YYYY")), anoPublicacao.toString()
+        );
+    }
 }
