@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/autores")
+@RequestMapping("autores")
 @RequiredArgsConstructor
 public class AutorController implements GenericController {
 

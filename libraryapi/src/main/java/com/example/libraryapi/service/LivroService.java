@@ -4,7 +4,6 @@ package com.example.libraryapi.service;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
 import com.example.libraryapi.repository.LivroRepository;
-import com.example.libraryapi.repository.specs.LivroSpecs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -20,8 +19,8 @@ public class LivroService {
 
     private final LivroRepository livroRepository;
 
-    public Livro salvar(Livro livro) {
-        return livroRepository.save(livro);
+    public void salvar(Livro livro) {
+        livroRepository.save(livro);
     }
 
     public Optional<Livro> obterPorId(UUID id) {
@@ -56,6 +55,10 @@ public class LivroService {
 
         if (anoPublicacao != null) {
             specs = specs.and(anoPublicacaoEqual(anoPublicacao));
+        }
+
+        if (nomeAutor != null) {
+            specs = specs.and(nomeAutor(nomeAutor));
         }
 
         return livroRepository.findAll(specs);

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -27,7 +28,7 @@ public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecific
 
     List<Livro> findByTitulo(String titulo);
 
-    List<Livro> findByIsbn(String isbn);
+    Optional<Livro> findByIsbn(String isbn);
 
     List<Livro> findByTituloAndPreco(String titulo, BigDecimal preco);
 
@@ -43,7 +44,7 @@ public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecific
     @Query("select l from Livro as l order by l.titulo, l.preco")
     List<Livro> listarTodosOrdenadosPorTituloAndPreco();
 
-    @Query("select a from Livro l join l.autor a")
+    @Query("select a from Livro l join l.autor a ")
     List<Autor> listarAutoresDosLivros();
 
     @Query("select distinct l.titulo from Livro l")
@@ -60,11 +61,11 @@ public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecific
 
 
     // Named parameters -> parametros nomeados
-    @Query("select l from Livro l where l.genero = :genero order by :paramOrdenado")
-    List<Livro> findByGenero(@Param("genero") GeneroLivro generoLivro, @Param("titulo") String nomeOrdenado);
+    @Query("select l from Livro l where l.genero = :genero order by :paramOrdenacao ")
+    List<Livro> findByGenero(@Param("genero") GeneroLivro generoLivro, @Param("paramOrdenacao") String nomePropriedade);
 
     // Positional parameters -> parametros posicionados
-    @Query("select l from Livro l where l.genero = ?2 order by ?1")
+    @Query("select l from Livro l where l.genero = ?2 order by ?1 ")
     List<Livro> findByGeneroPositionalParameters(String nomePropriedade, GeneroLivro generoLivro);
 
 
@@ -76,8 +77,8 @@ public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecific
 
     @Modifying
     @Transactional
-    @Query("update Livro l set l.dataPublicacao = :data")
-    int updateDataPublicacao(@Param("data") LocalDate dataPublicacao);
+    @Query(" update Livro set dataPublicacao = ?1 ")
+    void updateDataPublicacao(LocalDate novaData);
 
     boolean existsByAutor(Autor autor);
 

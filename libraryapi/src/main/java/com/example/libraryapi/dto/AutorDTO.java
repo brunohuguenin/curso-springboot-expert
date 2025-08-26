@@ -23,8 +23,6 @@ public record AutorDTO(
 
 ) {
 
-
-
     public Autor mapearAutor() {
         Autor autor = new Autor();
         autor.setNome(this.nome);
