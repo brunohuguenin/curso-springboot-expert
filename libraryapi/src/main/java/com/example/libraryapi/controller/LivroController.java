@@ -3,20 +3,18 @@ package com.example.libraryapi.controller;
 
 import com.example.libraryapi.controller.mappers.LivroMapper;
 import com.example.libraryapi.dto.CadastroLivroDTO;
-import com.example.libraryapi.dto.ErroResposta;
 import com.example.libraryapi.dto.ResultadoPesquisaLivroDTO;
-import com.example.libraryapi.exceptions.RegistroDuplicadoException;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
 import com.example.libraryapi.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("livros")
@@ -54,22 +52,38 @@ public class LivroController implements GenericController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ResultadoPesquisaLivroDTO>> pesquisa(
+    public ResponseEntity<Page<ResultadoPesquisaLivroDTO>> pesquisa(
             @RequestParam(value = "isbn", required = false)
             String isbn,
+
             @RequestParam(value = "titutlo", required = false)
             String titulo,
+
             @RequestParam(value = "nome-autor", required = false)
             String nomeAutor,
+
             @RequestParam(value = "genero", required = false)
             GeneroLivro generoLivro,
-            @RequestParam(value = "ano-publicacao", required = false)
-            Integer anoPublicacao
-    ) {
-        var resultado = livroService.pesquisa(isbn, titulo, nomeAutor, generoLivro, anoPublicacao);
-        var lista = resultado.stream().map(mapper::toDTO).toList();
 
-        return ResponseEntity.ok(lista);
+            @RequestParam(value = "ano-publicacao", required = false)
+            Integer anoPublicacao,
+
+            @RequestParam(value = "pagina", defaultValue = "0")
+            Integer pagina,
+
+            @RequestParam(value = "tamanho-pagina", defaultValue = "10")
+            Integer tamanhoPagina
+
+
+    ) {
+
+        Page<Livro> paginaResultado = livroService.pesquisa(
+                isbn, titulo, nomeAutor, generoLivro,
+                anoPublicacao, pagina, tamanhoPagina);
+
+        Page<ResultadoPesquisaLivroDTO> resultado = paginaResultado.map(mapper::toDTO);
+
+        return ResponseEntity.ok(resultado);
     }
 
     @PutMapping("{id}")
