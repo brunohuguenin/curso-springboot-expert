@@ -17,7 +17,6 @@ public abstract class LivroMapper {
     @Mapping(target = "autor", expression = "java( autorRepository.findById(dto.idAutor()).orElse(null) )")
     public abstract Livro toEntity(CadastroLivroDTO dto);
 
-//    @Mapping(source = "genero", target = "generoLivro")
     @Mapping(source = "autor.id", target = "idAutor")
     @Mapping(source = "autor", target = "autorDTO")
     public abstract ResultadoPesquisaLivroDTO toDTO(Livro livro);
