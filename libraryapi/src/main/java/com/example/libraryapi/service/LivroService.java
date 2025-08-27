@@ -1,7 +1,5 @@
 package com.example.libraryapi.service;
 
-
-import com.example.libraryapi.dto.CadastroLivroDTO;
 import com.example.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;

@@ -2,6 +2,7 @@ package com.example.libraryapi.controller.cammon;
 
 import com.example.libraryapi.dto.ErroCampo;
 import com.example.libraryapi.dto.ErroResposta;
+import com.example.libraryapi.exceptions.CampoInvalidoException;
 import com.example.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import com.example.libraryapi.exceptions.RegistroDuplicadoException;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,15 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErroResposta handleOperacaoNaoPermitidaException(OperacaoNaoPermitidaException e) {
         return ErroResposta.repostaPadrao(e.getMessage());
+    }
+
+    @ExceptionHandler(CampoInvalidoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErroResposta handleCampoInvalidoException(CampoInvalidoException e) {
+        return new ErroResposta(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),"Erro de validação",
+                List.of(new ErroCampo(e.getCampo(), e.getMessage()))
+        );
     }
 
     @ExceptionHandler(RuntimeException.class)
