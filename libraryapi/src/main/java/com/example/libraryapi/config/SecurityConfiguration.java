@@ -22,5 +22,4 @@ public class SecurityConfiguration {
                     authorize.anyRequest().authenticated();
                 }).build();
     }
-
 }
