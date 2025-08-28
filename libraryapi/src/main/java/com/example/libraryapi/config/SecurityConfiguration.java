@@ -23,15 +23,18 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(Customizer.withDefaults())
                 .formLogin(configure -> {
                     configure.loginPage("/login");
                 })
                 .authorizeHttpRequests(authorize -> {
+//                    authorize.requestMatchers("/login").permitAll();
+//                    authorize.requestMatchers(HttpMethod.POST, "/autores/**").hasRole("ADMIN");
+//                    authorize.requestMatchers(HttpMethod.DELETE, "/autores/**").hasRole("ADMIN");
+//                    authorize.requestMatchers(HttpMethod.PUT, "/autores/**").hasRole("ADMIN");
+//                    authorize.requestMatchers(HttpMethod.GET, "/autores/**").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers("/login").permitAll();
-                    authorize.requestMatchers(HttpMethod.POST, "/autores/**").hasRole("ADMIN");
-                    authorize.requestMatchers(HttpMethod.DELETE, "/autores/**").hasRole("ADMIN");
-                    authorize.requestMatchers(HttpMethod.PUT, "/autores/**").hasRole("ADMIN");
-                    authorize.requestMatchers(HttpMethod.GET, "/autores/**").hasAnyRole("ADMIN", "USER");
+                    authorize.requestMatchers( "/autores/**").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers("/livros/**").hasAnyRole("USER", "ADMIN");
                     authorize.anyRequest().authenticated();
                 }).build();
