@@ -3,7 +3,9 @@ package com.example.libraryapi.service;
 import com.example.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
+import com.example.libraryapi.model.Usuario;
 import com.example.libraryapi.repository.LivroRepository;
+import com.example.libraryapi.securiy.SecurityService;
 import com.example.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,9 +24,12 @@ public class LivroService {
 
     private final LivroRepository livroRepository;
     private final LivroValidator livroValidator;
+    private final SecurityService securityService;
 
     public Livro salvar(Livro livro) {
         livroValidator.validar(livro);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        livro.setUsuario(usuario);
         return livroRepository.save(livro);
     }
 

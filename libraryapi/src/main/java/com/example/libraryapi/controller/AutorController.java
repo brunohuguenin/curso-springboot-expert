@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
@@ -26,9 +26,8 @@ public class AutorController implements GenericController {
 
     @PostMapping
     @PreAuthorize("hasRole('GERENTE')")
-    public ResponseEntity<Void> salvar(@RequestBody @Valid AutorDTO dto, Authentication authentication) {
+    public ResponseEntity<Void> salvar(@RequestBody @Valid AutorDTO dto) {
 
-        System.out.println(authentication);
 
         Autor autor = mapper.toEntity(dto);
         autorService.salvar(autor);

@@ -4,8 +4,10 @@ package com.example.libraryapi.service;
 import com.example.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import com.example.libraryapi.exceptions.RegistroDuplicadoException;
 import com.example.libraryapi.model.Autor;
+import com.example.libraryapi.model.Usuario;
 import com.example.libraryapi.repository.AutorRepository;
 import com.example.libraryapi.repository.LivroRepository;
+import com.example.libraryapi.securiy.SecurityService;
 import com.example.libraryapi.validator.AutorValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
@@ -23,9 +25,12 @@ public class AutorService {
     private final AutorRepository autorRepository;
     private final AutorValidator validator;
     private final LivroRepository livroRepository;
+    private final SecurityService securityService;
 
     public Autor salvar(Autor autor) {
         validator.validar(autor);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        autor.setUsuario(usuario);
         return autorRepository.save(autor);
     }
 
