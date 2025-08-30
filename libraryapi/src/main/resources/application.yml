@@ -7,8 +7,6 @@
 #spring.jpa.properties.hibernate.format_sql=true
 #spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 #
-#spring.security.oauth2.client.registration.google.client-id=177771679716-q2d506dfidbom8atpngrjp0565kgtf72.apps.googleusercontent.com
-#spring.security.oauth2.client.registration.google.client-secret=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
 
 spring:
   datasource:
