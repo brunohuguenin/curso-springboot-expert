@@ -11,12 +11,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -28,9 +25,10 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(configure -> {
-                    configure.loginPage("/login");
-                })
+//                .formLogin(configure -> {
+//                    configure.loginPage("/login");
+//                })
+                .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
 //                    authorize.requestMatchers("/login").permitAll();
 //                    authorize.requestMatchers(HttpMethod.POST, "/autores/**").hasRole("ADMIN");
@@ -40,7 +38,9 @@ public class SecurityConfiguration {
                     authorize.requestMatchers("/login/**").permitAll();
                     authorize.requestMatchers( HttpMethod.POST,"/usuarios/**").permitAll();
                     authorize.anyRequest().authenticated();
-                }).build();
+                })
+                .oauth2Login(Customizer.withDefaults())
+                .build();
     }
 
     @Bean
