@@ -2,6 +2,7 @@ package com.example.libraryapi.config;
 
 
 import com.example.libraryapi.securiy.CustomUserDetailsService;
+import com.example.libraryapi.securiy.LoginSocialSuccessHandler;
 import com.example.libraryapi.service.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            LoginSocialSuccessHandler successHandler) throws Exception {
+
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
@@ -31,16 +35,13 @@ public class SecurityConfiguration {
 //                })
                 .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
-//                    authorize.requestMatchers("/login").permitAll();
-//                    authorize.requestMatchers(HttpMethod.POST, "/autores/**").hasRole("ADMIN");
-//                    authorize.requestMatchers(HttpMethod.DELETE, "/autores/**").hasRole("ADMIN");
-//                    authorize.requestMatchers(HttpMethod.PUT, "/autores/**").hasRole("ADMIN");
-//                    authorize.requestMatchers(HttpMethod.GET, "/autores/**").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers("/login/**").permitAll();
                     authorize.requestMatchers( HttpMethod.POST,"/usuarios/**").permitAll();
                     authorize.anyRequest().authenticated();
                 })
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> {
+                    oauth2.successHandler(successHandler);
+                })
                 .build();
     }
 
@@ -51,19 +52,6 @@ public class SecurityConfiguration {
 
 //    @Bean
     public UserDetailsService userDetailsService(UsuarioService usuarioService) {
-//        UserDetails user1 = User.builder()
-//                .username("usuario")
-//                .password(encoder.encode("123"))
-//                .roles("USER")
-//                .build();
-//
-//        UserDetails user2 = User.builder()
-//                .username("admin")
-//                .password(encoder.encode("321"))
-//                .roles("ADMIN")
-//                .build();
-
-//        return new InMemoryUserDetailsManager(user1, user2);
 
         return new CustomUserDetailsService(usuarioService);
     }
