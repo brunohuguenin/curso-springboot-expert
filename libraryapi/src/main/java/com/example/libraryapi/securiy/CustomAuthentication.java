@@ -1,21 +1,27 @@
 package com.example.libraryapi.securiy;
 
 import com.example.libraryapi.model.Usuario;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Getter
 public class CustomAuthentication implements Authentication {
 
     private final Usuario usuario;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.usuario.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role))
+                .toList();
     }
 
     @Override
@@ -25,17 +31,17 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Object getDetails() {
-        return null;
+        return usuario;
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return usuario;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return false;
+        return true;
     }
 
     @Override
@@ -45,6 +51,6 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return "";
+        return usuario.getLogin();
     }
 }
