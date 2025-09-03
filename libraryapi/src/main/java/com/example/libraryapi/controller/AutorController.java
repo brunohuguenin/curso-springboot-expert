@@ -28,12 +28,10 @@ public class AutorController implements GenericController {
     @PreAuthorize("hasRole('GERENTE')")
     public ResponseEntity<Void> salvar(@RequestBody @Valid AutorDTO dto) {
 
-
         Autor autor = mapper.toEntity(dto);
         autorService.salvar(autor);
         URI location = gerarHeaderLocation(autor.getId());
         return ResponseEntity.created(location).build();
-
     }
 
     @GetMapping("{id}")
@@ -48,7 +46,6 @@ public class AutorController implements GenericController {
         }
         return ResponseEntity.notFound().build();
     }
-
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('GERENTE')")

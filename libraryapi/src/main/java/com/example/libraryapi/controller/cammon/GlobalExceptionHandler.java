@@ -35,7 +35,6 @@ public class GlobalExceptionHandler {
         return ErroResposta.conflito(e.getMessage());
     }
 
-
     @ExceptionHandler(OperacaoNaoPermitidaException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErroResposta handleOperacaoNaoPermitidaException(OperacaoNaoPermitidaException e) {
